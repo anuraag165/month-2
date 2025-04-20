@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anuraag ❤️ Raveena - Our Flipbook Story</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom, #001f3f, #000000);
+            overflow-x: hidden;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+
+        h1 {
+            font-family: 'Pacifico', cursive;
+            color: #ff69b4;
+            margin: 10px 0 30px 0;
+            font-size: 2.5rem;
+            text-align: center;
+        }
+
+        .book {
+            width: 90%;
+            max-width: 400px;
+            perspective: 2000px;
+            position: relative;
+            margin-bottom: 50px;
+        }
+
+        .page {
+            width: 100%;
+            height: 400px;
+            background: #011627;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+            transition: transform 1s ease, opacity 0.6s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            text-align: center;
+        }
+
+        .page.show {
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .page h2 {
+            font-family: 'Pacifico', cursive;
+            color: #ff69b4;
+            margin-bottom: 10px;
+        }
+
+        .page p {
+            font-size: 1.1rem;
+            padding: 0 10px;
+        }
+
+        .controls {
+            margin-top: 450px;
+            text-align: center;
+            position: relative;
+            z-index: 5;
+        }
+
+        button {
+            background: #0074D9;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #005fa3;
+        }
+
+        /* Slideshow */
+        .slideshow-container {
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            margin-top: 30px;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 300px;
+            object-fit: contain;
+            background: #000;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .fade {
+            animation: fade 2s infinite;
+        }
+
+        @keyframes fade {
+            from {
+                opacity: 0.4;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Anuraag ❤️ Raveena</h1>
+
+    <div class="book" id="book">
+        <div class="page" id="page0">
+            <h2>Gallery of Us</h2>
+            <p>It's been 2 months of a beautiful journey together. I promise I won't ever give up on us. Every moment
+                spent
+                with you is a memory I cherish deeply.</p>
+        </div>
+        <div class="page" id="page1">
+            <h2>How We Met</h2>
+            <p>From a simple connection, to countless conversations, to seeing your beautiful smile — everything feels
+                like
+                destiny brought us closer. Your smile is my favorite smile.</p>
+        </div>
+        <div class="page" id="page2">
+            <h2>Our First Dates</h2>
+            <p>Whether it’s coffee dates, gym sessions, or small walks, every time we meet feels like the first time —
+                and
+                still, it’s never enough. I always look forward to seeing you again.</p>
+        </div>
+        <div class="page" id="page3">
+            <h2>You Are My Motivation</h2>
+            <p>I know MBBS is tough, but I'll always stand by you. I'll be your strength, your biggest cheerleader.
+                Whatever
+                success I achieve, I'll always give you credit, because you inspire me every day.</p>
+        </div>
+        <div class="page" id="page4">
+            <h2>My Forever Promise</h2>
+            <p>I’ll always bring you purple flowers 💜 because your happiness matters most to me. I promise to stay
+                disciplined, motivated, and patient. I love you endlessly, and I can't wait for the day we get married.
+                ❤️</p>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button onclick="prevPage()">⬅ Prev</button>
+        <button onclick="nextPage()">Next ➡</button>
+    </div>
+
+    <!-- Slideshow Section -->
+    <div class="slideshow-container" id="slideshow">
+        <div class="slide fade">
+            <img src="1.png" alt="Memory 1">
+        </div>
+        <div class="slide fade">
+            <img src="2.png" alt="Memory 2">
+        </div>
+        <div class="slide fade">
+            <img src="3.png" alt="Memory 3">
+        </div>
+    </div>
+
+    <script>
+        let currentPage = 0;
+        const pages = document.querySelectorAll('.page');
+
+        function updateBook() {
+            pages.forEach((page, index) => {
+                page.classList.remove('show');
+                page.style.transform = 'rotateY(0deg)';
+                if (index === currentPage) {
+                    page.classList.add('show');
+                    page.style.zIndex = 2;
+                } else if (index < currentPage) {
+                    page.classList.add('show');
+                    page.style.transform = 'rotateY(-180deg)';
+                    page.style.zIndex = 1;
+                }
+            });
+        }
+
+        function nextPage() {
+            if (currentPage < pages.length - 1) {
+                currentPage++;
+                updateBook();
+            }
+        }
+
+        function prevPage() {
+            if (currentPage > 0) {
+                currentPage--;
+                updateBook();
+            }
+        }
+
+        updateBook();
+
+        // Slideshow Script
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            let slides = document.querySelectorAll(".slide");
+            slides.forEach(slide => slide.style.display = "none");
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1 }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlides, 2500); // Change image every 2.5 seconds
+        }
+    </script>
+
+</body>
+
+</html>
