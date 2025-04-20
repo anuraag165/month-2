@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anuraag ❤️ Raveena - Our Flipbook Story</title>
+    <title>Anuraag ❤️ Raveena - Our Forever Story</title>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap"
         rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
         body {
             margin: 0;
@@ -20,6 +21,7 @@
             justify-content: flex-start;
             min-height: 100vh;
             padding: 20px 0;
+            position: relative;
         }
 
         h1 {
@@ -30,32 +32,41 @@
             text-align: center;
         }
 
+        .flipbook-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
         .book {
             width: 90%;
             max-width: 400px;
-            perspective: 2000px;
+            margin-bottom: 30px;
             position: relative;
-            margin-bottom: 50px;
+            min-height: 450px;
         }
 
         .page {
             width: 100%;
-            height: 400px;
+            min-height: 400px;
             background: #011627;
             border-radius: 10px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
-            position: absolute;
-            top: 0;
-            left: 0;
             transform-style: preserve-3d;
             backface-visibility: hidden;
-            transition: transform 1s ease, opacity 0.6s ease;
+            transition: transform 0.8s ease, opacity 0.6s ease;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 20px;
             opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
             text-align: center;
         }
 
@@ -72,14 +83,10 @@
 
         .page p {
             font-size: 1.1rem;
-            padding: 0 10px;
-        }
-
-        .controls {
-            margin-top: 450px;
+            padding: 20px;
+            line-height: 1.7;
+            color: #f0f0f0;
             text-align: center;
-            position: relative;
-            z-index: 5;
         }
 
         button {
@@ -87,7 +94,7 @@
             color: white;
             border: none;
             padding: 10px 20px;
-            margin: 5px;
+            margin: 10px 0 20px 0;
             border-radius: 30px;
             cursor: pointer;
             font-size: 1rem;
@@ -100,11 +107,21 @@
         }
 
         /* Slideshow */
+        .slideshow-wrapper {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 10px;
+            background: none;
+            z-index: 1;
+        }
+
         .slideshow-container {
             width: 90%;
             max-width: 500px;
             position: relative;
-            margin-top: 30px;
         }
 
         .slide {
@@ -114,7 +131,7 @@
 
         .slide img {
             width: 100%;
-            height: 300px;
+            max-height: 300px;
             object-fit: contain;
             background: #000;
             border-radius: 10px;
@@ -134,6 +151,50 @@
                 opacity: 1;
             }
         }
+
+        /* Heart Animation */
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: pink;
+            border-radius: 50%;
+            transform: rotate(45deg);
+            animation: float 6s linear infinite;
+            z-index: 1000;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: pink;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -10px;
+            left: 0;
+        }
+
+        .heart::after {
+            left: -10px;
+            top: 0;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(45deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-800px) rotate(45deg);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 
@@ -141,54 +202,74 @@
 
     <h1>Anuraag ❤️ Raveena</h1>
 
-    <div class="book" id="book">
-        <div class="page" id="page0">
-            <h2>Gallery of Us</h2>
-            <p>It's been 2 months of a beautiful journey together. I promise I won't ever give up on us. Every moment
-                spent
-                with you is a memory I cherish deeply.</p>
+    <div class="flipbook-container">
+        <div class="book" id="book">
+            <div class="page" id="page0">
+                <h2>2 Beautiful Months</h2>
+                <p>It's been 2 months of a journey filled with love, smiles, and growth. I promise I won't give up on
+                    us, no
+                    matter what comes our way. I will cherish every moment we create together.</p>
+            </div>
+            <div class="page" id="page1">
+                <h2>How We Met</h2>
+                <p>From a simple message, to conversations that never ended, to falling in love without even realizing
+                    it — you
+                    became my home, my safe place. Your smile is and will always be my favorite view.</p>
+            </div>
+            <div class="page" id="page2">
+                <h2>Our Dates & Calls</h2>
+                <p>Whether it's meeting for a short while, working out together, or staying on long calls for hours,
+                    every
+                    second spent with you feels like magic. And honestly, it's never enough for my heart.</p>
+            </div>
+            <div class="page" id="page3">
+                <h2>You're My Strength</h2>
+                <p>I know how tough MBBS is, but I want you to know you’re never alone. I'll stand with you through
+                    every
+                    sleepless night, every stressful exam, every emotional moment. I'll take you out of sadness and be
+                    your
+                    biggest happiness.</p>
+            </div>
+            <div class="page" id="page4">
+                <h2>Flowers & Little Things</h2>
+                <p>I love bringing you flowers, especially purple ones 💜. They remind me of your pure soul. I find
+                    happiness in
+                    the smallest things when they make you smile, because your smile lights up my world.</p>
+            </div>
+            <div class="page" id="page5">
+                <h2>Building Our Future</h2>
+                <p>One day, after all our hard work, we'll build our dream home — a cozy place filled with love,
+                    laughter, and
+                    endless memories. I promise to work harder every day so we can create the life we both dream about.
+                </p>
+            </div>
+            <div class="page" id="page6">
+                <h2>You + Me + Forever</h2>
+                <p>When I think about my future, it's not complete without you. Your parents are my parents now. Your
+                    dreams are
+                    mine too. I can't wait for the day we build our own little family and grow old together, hand in
+                    hand. ❤️</p>
+            </div>
         </div>
-        <div class="page" id="page1">
-            <h2>How We Met</h2>
-            <p>From a simple connection, to countless conversations, to seeing your beautiful smile — everything feels
-                like
-                destiny brought us closer. Your smile is my favorite smile.</p>
-        </div>
-        <div class="page" id="page2">
-            <h2>Our First Dates</h2>
-            <p>Whether it’s coffee dates, gym sessions, or small walks, every time we meet feels like the first time —
-                and
-                still, it’s never enough. I always look forward to seeing you again.</p>
-        </div>
-        <div class="page" id="page3">
-            <h2>You Are My Motivation</h2>
-            <p>I know MBBS is tough, but I'll always stand by you. I'll be your strength, your biggest cheerleader.
-                Whatever
-                success I achieve, I'll always give you credit, because you inspire me every day.</p>
-        </div>
-        <div class="page" id="page4">
-            <h2>My Forever Promise</h2>
-            <p>I’ll always bring you purple flowers 💜 because your happiness matters most to me. I promise to stay
-                disciplined, motivated, and patient. I love you endlessly, and I can't wait for the day we get married.
-                ❤️</p>
-        </div>
+
+        <button onclick="celebrate()">🎉 Celebrate</button>
     </div>
 
-    <div class="controls">
-        <button onclick="prevPage()">⬅ Prev</button>
-        <button onclick="nextPage()">Next ➡</button>
-    </div>
+    <!-- Audio Music -->
+    <audio id="bg-music" src="Finding-Her.mp3" loop hidden></audio>
 
-    <!-- Slideshow Section -->
-    <div class="slideshow-container" id="slideshow">
-        <div class="slide fade">
-            <img src="1.png" alt="Memory 1">
-        </div>
-        <div class="slide fade">
-            <img src="2.png" alt="Memory 2">
-        </div>
-        <div class="slide fade">
-            <img src="3.png" alt="Memory 3">
+    <!-- Slideshow -->
+    <div class="slideshow-wrapper">
+        <div class="slideshow-container" id="slideshow">
+            <div class="slide fade">
+                <img src="1.png" alt="Memory 1">
+            </div>
+            <div class="slide fade">
+                <img src="2.png" alt="Memory 2">
+            </div>
+            <div class="slide fade">
+                <img src="3.png" alt="Memory 3">
+            </div>
         </div>
     </div>
 
@@ -227,18 +308,61 @@
 
         updateBook();
 
-        // Slideshow Script
+        // Book flip on click
+        const book = document.getElementById('book');
+        book.addEventListener('click', function (e) {
+            const x = e.clientX || e.touches?.[0]?.clientX;
+            if (x < window.innerWidth / 2) {
+                prevPage();
+            } else {
+                nextPage();
+            }
+        });
+
+        // Slideshow
         let slideIndex = 0;
         showSlides();
-
         function showSlides() {
             let slides = document.querySelectorAll(".slide");
             slides.forEach(slide => slide.style.display = "none");
             slideIndex++;
             if (slideIndex > slides.length) { slideIndex = 1 }
             slides[slideIndex - 1].style.display = "block";
-            setTimeout(showSlides, 2500); // Change image every 2.5 seconds
+            setTimeout(showSlides, 2500);
         }
+
+        // Celebrate button
+        function celebrate() {
+            confetti({
+                particleCount: 200,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+            for (let i = 0; i < 30; i++) {
+                createHeart();
+            }
+        }
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (4 + Math.random() * 2) + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+
+        // Play music after first click
+        document.addEventListener('click', () => {
+            const music = document.getElementById('bg-music');
+            if (music.paused) {
+                music.play().catch((e) => {
+                    console.log('Autoplay prevented:', e);
+                });
+            }
+        }, { once: true });
+
     </script>
 
 </body>
